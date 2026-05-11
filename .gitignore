@@ -1,0 +1,33 @@
+# Build
+bin/
+obj/
+
+# User files
+*.user
+*.suo
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# Docker
+docker-data/
+postgres-data/
+
+# Publish
+publish/
+
+# NuGet
+packages/
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,6 @@
+@OmniRetail.API_HostAddress = http://localhost:5117
+
+GET {{OmniRetail.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

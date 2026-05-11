@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="OmniRetail.AI/OmniRetail.AI.csproj" />
+  <Project Path="OmniRetail.API/OmniRetail.API.csproj" />
+  <Project Path="OmniRetail.Application/OmniRetail.Application.csproj" />
+  <Project Path="OmniRetail.Core/OmniRetail.Core.csproj" />
+  <Project Path="OmniRetail.Infrastructure/OmniRetail.Infrastructure.csproj" />
+  <Project Path="OmniRetail.WPF/OmniRetail.WPF.csproj" Id="73d0d2b3-6a58-43d3-9adb-fa0da06fb499" />
+</Solution>

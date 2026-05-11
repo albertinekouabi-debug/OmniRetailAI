@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OmniRetail.Application\OmniRetail.Application.csproj" />
+    <ProjectReference Include="..\OmniRetail.Core\OmniRetail.Core.csproj" />
+  </ItemGroup>
+
+</Project>

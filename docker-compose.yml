@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: omniretail-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: OmniRetailDB
+      POSTGRES_USER: omniretail
+      POSTGRES_PASSWORD: Omn1R3t4il!
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - omniretail_pgdata:/var/lib/postgresql/data
+
+    networks:
+      - omniretail-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: omniretail-redis
+    restart: unless-stopped
+
+    ports:
+      - "6379:6379"
+
+    networks:
+      - omniretail-network
+
+volumes:
+  omniretail_pgdata:
+
+networks:
+  omniretail-network:
