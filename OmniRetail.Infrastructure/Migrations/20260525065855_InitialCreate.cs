@@ -170,7 +170,8 @@ namespace OmniRetail.Infrastructure.Migrations
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     RevokedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     RevokedReason = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    ReplacedByToken = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true)
+                    ReplacedByToken = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    UserId1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -181,6 +182,11 @@ namespace OmniRetail.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_Users_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -190,6 +196,7 @@ namespace OmniRetail.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    UserId1 = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -202,6 +209,11 @@ namespace OmniRetail.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Sales_Users_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -215,7 +227,8 @@ namespace OmniRetail.Infrastructure.Migrations
                     IsRead = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     ReadAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    ProductId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -226,6 +239,11 @@ namespace OmniRetail.Infrastructure.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Alerts_Products_ProductId1",
+                        column: x => x.ProductId1,
+                        principalTable: "Products",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -242,7 +260,7 @@ namespace OmniRetail.Infrastructure.Migrations
                     Reason = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-
+                    UserId1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -259,6 +277,11 @@ namespace OmniRetail.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_InventoryTransactions_Users_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -275,6 +298,7 @@ namespace OmniRetail.Infrastructure.Migrations
                     LastActivityAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    UserId1 = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -293,6 +317,11 @@ namespace OmniRetail.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserSessions_Users_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -356,6 +385,11 @@ namespace OmniRetail.Infrastructure.Migrations
                 columns: new[] { "ProductId", "Type", "IsRead" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Alerts_ProductId1",
+                table: "Alerts",
+                column: "ProductId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AuditLogs_Action",
                 table: "AuditLogs",
                 column: "Action");
@@ -401,6 +435,10 @@ namespace OmniRetail.Infrastructure.Migrations
                 table: "InventoryTransactions",
                 column: "UserId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryTransactions_UserId1",
+                table: "InventoryTransactions",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permissions_Name",
@@ -449,6 +487,10 @@ namespace OmniRetail.Infrastructure.Migrations
                 table: "RefreshTokens",
                 columns: new[] { "UserId", "RevokedAt" });
 
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_UserId1",
+                table: "RefreshTokens",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RolePermissions_PermissionId",
@@ -486,7 +528,10 @@ namespace OmniRetail.Infrastructure.Migrations
                 table: "Sales",
                 column: "UserId");
 
-
+            migrationBuilder.CreateIndex(
+                name: "IX_Sales_UserId1",
+                table: "Sales",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Username",
@@ -514,7 +559,10 @@ namespace OmniRetail.Infrastructure.Migrations
                 table: "UserSessions",
                 columns: new[] { "UserId", "IsActive" });
 
-
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSessions_UserId1",
+                table: "UserSessions",
+                column: "UserId1");
         }
 
         /// <inheritdoc />
