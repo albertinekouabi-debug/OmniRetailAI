@@ -92,8 +92,7 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ProductId1")
-                        .HasColumnType("uuid");
+
 
                     b.Property<DateTimeOffset?>("ReadAt")
                         .HasColumnType("timestamp with time zone");
@@ -116,7 +115,7 @@ namespace OmniRetail.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("ProductId1");
+
 
                     b.HasIndex("ProductId", "Type", "IsRead");
 
@@ -253,8 +252,7 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uuid");
+
 
                     b.HasKey("Id");
 
@@ -266,7 +264,7 @@ namespace OmniRetail.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
+
 
                     b.ToTable("InventoryTransactions", (string)null);
                 });
@@ -419,8 +417,7 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uuid");
+
 
                     b.HasKey("Id");
 
@@ -428,7 +425,7 @@ namespace OmniRetail.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
+
 
                     b.ToTable("Sales", (string)null);
                 });
@@ -568,7 +565,7 @@ namespace OmniRetail.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
+
 
                     b.HasIndex("UserId", "IsActive");
 
@@ -620,8 +617,7 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uuid");
+
 
                     b.HasKey("Id");
 
@@ -632,7 +628,7 @@ namespace OmniRetail.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
+
 
                     b.HasIndex("UserId", "RevokedAt");
 
@@ -646,10 +642,6 @@ namespace OmniRetail.Infrastructure.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OmniRetail.Core.Entities.Product", null)
-                        .WithMany("Alerts")
-                        .HasForeignKey("ProductId1");
 
                     b.Navigation("Product");
                 });
@@ -673,10 +665,6 @@ namespace OmniRetail.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("OmniRetail.Core.Entities.User", null)
-                        .WithMany("InventoryTransactions")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("Product");
 
@@ -712,10 +700,6 @@ namespace OmniRetail.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("OmniRetail.Core.Entities.User", null)
-                        .WithMany("Sales")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
@@ -753,10 +737,6 @@ namespace OmniRetail.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OmniRetail.Core.Entities.User", null)
-                        .WithMany("Sessions")
-                        .HasForeignKey("UserId1");
-
                     b.Navigation("RefreshToken");
 
                     b.Navigation("User");
@@ -769,10 +749,6 @@ namespace OmniRetail.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OmniRetail.Core.Entities.User", null)
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
