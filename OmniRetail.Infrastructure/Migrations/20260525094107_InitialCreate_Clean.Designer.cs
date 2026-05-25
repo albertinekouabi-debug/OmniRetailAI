@@ -12,8 +12,8 @@ using OmniRetail.Infrastructure.Data;
 namespace OmniRetail.Infrastructure.Migrations
 {
     [DbContext(typeof(OmniRetailDbContext))]
-    [Migration("20260525084749_UpdateTimestampsToDateTimeOffset")]
-    partial class UpdateTimestampsToDateTimeOffset
+    [Migration("20260525094107_InitialCreate_Clean")]
+    partial class InitialCreate_Clean
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,9 +95,6 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ProductId1")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTimeOffset?>("ReadAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -118,8 +115,6 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.HasIndex("IsRead");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ProductId1");
 
                     b.HasIndex("ProductId", "Type", "IsRead");
 
@@ -422,16 +417,11 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Sales", (string)null);
                 });
@@ -560,9 +550,6 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IsActive");
@@ -570,8 +557,6 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.HasIndex("RefreshTokenId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.HasIndex("UserId", "IsActive");
 
@@ -623,9 +608,6 @@ namespace OmniRetail.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ExpiresAt");
@@ -635,8 +617,6 @@ namespace OmniRetail.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
-
                     b.HasIndex("UserId", "RevokedAt");
 
                     b.ToTable("RefreshTokens", (string)null);
@@ -645,14 +625,10 @@ namespace OmniRetail.Infrastructure.Migrations
             modelBuilder.Entity("OmniRetail.Core.Entities.Alert", b =>
                 {
                     b.HasOne("OmniRetail.Core.Entities.Product", "Product")
-                        .WithMany()
+                        .WithMany("Alerts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OmniRetail.Core.Entities.Product", null)
-                        .WithMany("Alerts")
-                        .HasForeignKey("ProductId1");
 
                     b.Navigation("Product");
                 });
@@ -711,14 +687,10 @@ namespace OmniRetail.Infrastructure.Migrations
             modelBuilder.Entity("OmniRetail.Core.Entities.Sale", b =>
                 {
                     b.HasOne("OmniRetail.Core.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Sales")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("OmniRetail.Core.Entities.User", null)
-                        .WithMany("Sales")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
@@ -751,14 +723,10 @@ namespace OmniRetail.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("OmniRetail.Core.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Sessions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OmniRetail.Core.Entities.User", null)
-                        .WithMany("Sessions")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("RefreshToken");
 
@@ -768,14 +736,10 @@ namespace OmniRetail.Infrastructure.Migrations
             modelBuilder.Entity("RefreshToken", b =>
                 {
                     b.HasOne("OmniRetail.Core.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("RefreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OmniRetail.Core.Entities.User", null)
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });

@@ -95,7 +95,7 @@ public class OmniRetailDbContext : DbContext
             e.Property(x => x.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             e.HasOne(x => x.User)
-             .WithMany()
+             .WithMany(u => u.RefreshTokens)
              .HasForeignKey(x => x.UserId)
              .OnDelete(DeleteBehavior.Cascade);
 
@@ -119,7 +119,7 @@ public class OmniRetailDbContext : DbContext
             e.Property(x => x.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             e.HasOne(x => x.User)
-             .WithMany()
+             .WithMany(u => u.Sessions)
              .HasForeignKey(x => x.UserId)
              .OnDelete(DeleteBehavior.Cascade);
 
@@ -172,6 +172,12 @@ public class OmniRetailDbContext : DbContext
 
             // Soft delete global query filter
             e.HasQueryFilter(x => !x.IsDeleted);
+
+            // Ensure explicit collection navigation for SaleItems to avoid shadow foreign keys
+            e.HasMany(p => p.SaleItems)
+             .WithOne(si => si.Product)
+             .HasForeignKey(si => si.ProductId)
+             .OnDelete(DeleteBehavior.Restrict);
         });
 
     // ── InventoryTransaction ─────────────────────────────────
@@ -217,7 +223,7 @@ public class OmniRetailDbContext : DbContext
             e.Property(x => x.ReadAt).IsRequired(false);
 
             e.HasOne(x => x.Product)
-             .WithMany()
+             .WithMany(p => p.Alerts)
              .HasForeignKey(x => x.ProductId)
              .OnDelete(DeleteBehavior.Cascade);
 
@@ -237,7 +243,7 @@ public class OmniRetailDbContext : DbContext
             e.Property(x => x.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             e.HasOne(x => x.User)
-             .WithMany()
+             .WithMany(u => u.Sales)
              .HasForeignKey(x => x.UserId)
              .OnDelete(DeleteBehavior.Restrict);
 
