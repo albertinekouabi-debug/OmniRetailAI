@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OmniRetail.Core.Entities;
+﻿namespace OmniRetail.Core.Entities;
 
 public abstract class BaseEntity
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    // Use DateTimeOffset for timezone-aware timestamps across the domain
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+
+    public DateTimeOffset? UpdatedAt { get; set; }
 }

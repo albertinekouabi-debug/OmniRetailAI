@@ -1,15 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace OmniRetail.Core.Entities;
 
-namespace OmniRetail.Core.Entities;
-
-public class Category : BaseEntity
+/// <summary>
+/// Représente une catégorie de produits.
+/// Exemple : Électronique, Boissons, Alimentaire...
+/// </summary>
+public class Category
 {
+    public Guid Id { get; set; }
+
+    /// <summary>
+    /// Nom unique de la catégorie.
+    /// </summary>
     public string Name { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Description optionnelle.
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// Date de création.
+    /// </summary>
+    public DateTime CreatedAt { get; set; }
+
+    // ========================================
+    // NAVIGATION PROPERTIES
+    // ========================================
+
+    /// <summary>
+    /// Liste des produits appartenant
+    /// à cette catégorie.
+    /// </summary>
     public ICollection<Product> Products { get; set; }
         = new List<Product>();
 }
